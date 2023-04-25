@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&display=swap');
+
+.header {
+  font-family: 'Montserrat',sans-serif;
+  position: sticky;
+  width: 100vw;
+  height: 80px;
+  background-color: black;
+  top: 0;
+  z-index: 1;
+}
+
+.nav-container {
+  margin: 0 50px;
+  height: 100%;
+}
+
+.nav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 20px;
+}
+
+.item a, .item .btn {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 10px;
+}
+
+.item a.active {
+  border-bottom: 1px solid #ffffff;  
+}
+
+.logo {
+  margin-right: 150px;
+}
+
+.logo a {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.userIcon {
+  font-size: 15px;
+  margin-left: auto;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.logoutBtn {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}

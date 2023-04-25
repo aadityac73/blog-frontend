@@ -1,0 +1,52 @@
+.formContainer {
+  font-family: "Merriweather", serif;
+  padding: 30px 130px;
+  color: #222222;
+}
+
+.card {
+  padding: 40px 60px;
+  height: 500px;
+  background-color: #fdfdfd;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.h2 {
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.label {
+  display: block;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.formControl {
+  padding-bottom: 15px;
+}
+
+.input {
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 18px;
+  padding: 6px 8px;
+}
+
+.button {
+  width: 100%;
+  padding: 7px;
+  margin-top: 20px;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-color: #222222;
+  color: #fff;
+  border: 1px solid #222222;
+  border-radius: 2px;
+  cursor: pointer;
+}

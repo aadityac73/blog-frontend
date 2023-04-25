@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Sigmar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&family=Montserrat:wght@400;500;600;700;800;900&family=Sigmar&display=swap');
+
+*, html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.icons-sprite {
+  background: url(images/icons_sprite.png);
+  background-size: 1404px 105px;
+  display: inline-block;
+}
+
+.container {
+  width: 50vw;
+  margin: 0 auto;
+}
