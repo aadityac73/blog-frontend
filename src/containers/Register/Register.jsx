@@ -31,7 +31,7 @@ const Register = () => {
         <Navigate to="/sign-in" state={{ from: location }} replace />
       )}
       <div className={styles.card}>
-        <h2 className={styles.h2}>Sign In</h2>
+        <h2 className={styles.h2}>Sign up</h2>
         <div className={styles.form}>
           <form onSubmit={handleFormSubmit}>
             <div className={styles.formControl}>

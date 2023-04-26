@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Navigate, NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import api from "../../main-app/http/api";
@@ -54,16 +54,16 @@ const topNav = [
 
 const Header = () => {
   const { user, setUser } = useAuth();
-  const [redirect, setRediect] = useState(false)
+  const [redirect, setRediect] = useState(false);
   const handleLogout = async () => {
-    const {data} = await api.logout()
-    localStorage.removeItem('token')
-    localStorage.removeItem('userData')
-    setUser(null)
-    setRediect(true)
-    window.location.reload()
-  }
-  const location = useLocation()
+    const { data } = await api.logout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    setUser(null);
+    setRediect(true);
+    window.location.reload();
+  };
+  const location = useLocation();
   return (
     <>
       {redirect && <Navigate to="/" state={{ from: location }} replace />}
@@ -73,10 +73,11 @@ const Header = () => {
             {topNav.map((item) => {
               if (item.public) {
                 return user ? (
-                  <></>
+                  <Fragment key={item.id} />
                 ) : (
                   <li key={item.id} className={item.classes}>
                     <NavLink
+                      key={item.id}
                       className={({ isActive }) =>
                         isActive && item.id != 1 ? styles.active : ""
                       }
@@ -90,6 +91,7 @@ const Header = () => {
                 return user ? (
                   <li key={item.id} className={item.classes}>
                     <NavLink
+                      key={item.id}
                       className={({ isActive }) =>
                         isActive && item.id != 1 ? styles.active : ""
                       }
@@ -99,12 +101,22 @@ const Header = () => {
                     </NavLink>
                   </li>
                 ) : (
-                  <></>
+                  <Fragment key={item.id} />
                 );
               } else if (item.name === "logout") {
                 return user ? (
-                  <li key={item.id} style={{textAlign: 'center'}} className={item.classes}>
-                    <span className={styles.btn}>{user ? `Hi! ${user.firstName}` : ''}</span><br/><button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
+                  <li
+                    key={item.id}
+                    style={{ textAlign: "center" }}
+                    className={item.classes}
+                  >
+                    <span className={styles.btn}>
+                      {user ? `Hi! ${user.firstName}` : ""}
+                    </span>
+                    <br />
+                    <button className={styles.logoutBtn} onClick={handleLogout}>
+                      Logout
+                    </button>
                   </li>
                 ) : (
                   <></>
@@ -113,6 +125,7 @@ const Header = () => {
               return (
                 <li key={item.id} className={item.classes}>
                   <NavLink
+                    key={item.id}
                     className={({ isActive }) =>
                       isActive && item.id != 1 ? styles.active : ""
                     }

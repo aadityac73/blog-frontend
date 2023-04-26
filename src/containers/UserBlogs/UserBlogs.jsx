@@ -7,7 +7,12 @@ const UserBlogs = () => {
   useEffect(() => {
     const getBlogs = async () => {
       const res = await api.getUserBlogs();
-      setBlogs(Array.isArray(res.getValue()) ? res.getValue() : []);
+      const data = res.getValue();
+      if (!res.isError && Array.isArray(data)) {
+        setBlogs(data);
+      } else {
+        console.log("Internal server error");
+      }
     };
     getBlogs();
     return () => {
@@ -22,7 +27,11 @@ const UserBlogs = () => {
   };
   return (
     <div className="container">
-      <BlogList isUserList handleDelete={handleDelete} blogs={blogs} />
+      {blogs.length > 0 ? (
+        <BlogList isUserList handleDelete={handleDelete} blogs={blogs} />
+      ) : (
+        <p className="noContent">No Content Available</p>
+      )}
     </div>
   );
 };
