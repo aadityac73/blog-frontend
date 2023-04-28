@@ -1,24 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./BlogList.module.css";
 import { BsFillPencilFill, BsTrash3Fill } from "react-icons/bs";
+import ConfimModal from "../ConfimModal/ConfimModal";
+import api from "../../main-app/http/api";
 const BlogList = ({
   blogs,
-  handleDelete = () => void 0,
+  setBlogs = () => void 0,
   isUserList = false,
 }) => {
-  const editIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24"
-      viewBox="0 96 960 960"
-      width="24"
-    >
-      <path d="M769 460 605 296l47-48q25.594-25.5 62.047-26.5 36.453-1 65.987 26.647l38.432 37.706Q848 313.5 845.5 349.75t-28.062 61.812L769 460Zm-52.5 53L289 940.5H124v-164L551.5 349l165 164Z" />
-    </svg>
-  );
+  const replceHtmlEntities = (str) => {
+    const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+    const translate = {
+      nbsp: " ",
+      amp: "&",
+      quot: '"',
+      lt: "<",
+      gt: ">",
+    };
+    return str.replace(translate_re, (match, entity) => {
+      return translate[entity];
+    })
+  };
+  const [deleteId, setDeleteId] = useState(null)
+  const [modal, setModal] = useState(false)
+  const handleClose = () => {
+    setModal(false)
+    setDeleteId(null)
+  }
+  const putifyHtml = (str) => {
+    let newStr = str.replace(/(<([^>]+)>)/gi, "");
+    return replceHtmlEntities(newStr).substr(0,100);
+  };
+  const handleDelete = async (id) => {
+    await api.deleteBlog({ id });
+    const res = await api.getUserBlogs();
+    setBlogs(res.getValue());
+  };
+  const onClickDelete = (id) => () => {
+    setDeleteId(id)
+    setModal(true)
+  }
+  const deleteBlog = () => {
+    handleDelete(deleteId)
+    setModal(false)
+  }
   return (
     <div className={styles["blog-container"]}>
+      {modal && <ConfimModal handleSubmit={deleteBlog} handleClose={handleClose} />}
       {blogs.map((item) => (
         <div key={item._id} className={styles.item}>
           {isUserList && (
@@ -31,7 +60,7 @@ const BlogList = ({
                 <BsFillPencilFill color="#222222" />
               </Link>
               <button
-                onClick={handleDelete(item._id)}
+                onClick={onClickDelete(item._id)}
                 title="Delete"
                 className={`${styles.delete} ${styles.btn}`}
               >
@@ -45,11 +74,16 @@ const BlogList = ({
             </Link>
           </div>
           <div className={styles.content}>
-            <h3 className={styles.title}>
-              <Link to={`/blog/${item._id}`}>{item.title.substr(0, 23)}{item.title.length > 23 ? '...' : ''}</Link>
+            <h3 title={item.title} className={styles.title}>
+              <Link to={`/blog/${item._id}`}>
+                {item.title.substr(0, 23)}
+                {item.title.length > 23 ? "..." : ""}
+              </Link>
             </h3>
             <p className={styles.date}>{item.createdAt}</p>
-            <p className={styles.body}>{item.body.replace(/(<([^>]+)>)/ig, '').substr(0, 100)}...</p>
+            <p className={styles.body}>
+              {putifyHtml(item.body)}...
+            </p>
           </div>
         </div>
       ))}

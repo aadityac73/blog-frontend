@@ -20,15 +20,16 @@ const UserBlogs = () => {
     };
   }, []);
 
-  const handleDelete = (id) => async () => {
-    await api.deleteBlog({ id });
-    const res = await api.getUserBlogs();
-    setBlogs(res.getValue());
-  };
+  // const handleDelete = (id) => async () => {
+  //   console.log('from delete');
+  //   await api.deleteBlog({ id });
+  //   const res = await api.getUserBlogs();
+  //   setBlogs(res.getValue());
+  // };
   return (
     <div className="container">
       {blogs.length > 0 ? (
-        <BlogList isUserList handleDelete={handleDelete} blogs={blogs} />
+        <BlogList isUserList setBlogs={setBlogs} blogs={blogs} />
       ) : (
         <p className="noContent">No Content Available</p>
       )}

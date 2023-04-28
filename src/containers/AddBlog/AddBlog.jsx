@@ -23,6 +23,10 @@ const AddBlog = () => {
       setBody('')
     }
   };
+  const handleClear = () => {
+    setState({title: '', image: ''})
+    setBody('')
+  }
   return (
     <div className={`container ${styles.formContainer}`}>
       <div className={styles.card}>
@@ -71,6 +75,7 @@ const AddBlog = () => {
             <button className={styles.button} type="submit">
               Submit
             </button>
+            <button style={{marginTop: '15px', backgroundColor: 'gray'}} className={styles.button} onClick={handleClear}>Clear</button>
           </form>
         </div>
       </div>
